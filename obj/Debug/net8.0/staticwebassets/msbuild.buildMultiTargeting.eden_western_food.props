@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\eden_western_food.props" />
+</Project>
