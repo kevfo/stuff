@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("eden_western_food")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+379d004a8201f4d962b56005b98d6da9097ff6fc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5d6bb48abf99d4d7de34a6e598f5b5ae9bb9717")]
 [assembly: System.Reflection.AssemblyProductAttribute("eden_western_food")]
 [assembly: System.Reflection.AssemblyTitleAttribute("eden_western_food")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

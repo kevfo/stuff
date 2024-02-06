@@ -1,15 +1,111 @@
 ﻿@page
 @model IndexModel
 @using WebMatrix.Data;
+@using System.Data.SQLite;
 @{
+    var connectionString = "Data Source=./eden_db.db;Version=3;";
+    var connection = new SQLiteConnection(connectionString);
+    connection.Open();
+
+    // Get the data:
+    var cat_command = new SQLiteCommand("SELECT * FROM Category", connection);
+    var categories = cat_command.ExecuteReader();
     ViewData["Title"] = "Home page";
-    var db = Database.Open("./eden_db.db");
 }
 
-<div class="container">
-    
+<div class = "container">
+    <div class="row">
+        <div class = "col-3">
+            <div class="text-center my-2">
+                <img src = "~/images/eden_western.png" width = "180" height = "180" class = "image-thumbnail border border-secondary"/>
+            </div>
+            <div style = "height:60vh;" class ="overflow-auto">
+            <ul class="list-unstyled">
+                @while (categories.Read())
+                {
+                    <li class="fw-bold"> @categories["CatTitle"] </li>
+                    
+                    var menu_command = new SQLiteCommand($"SELECT * FROM MenuItem WHERE CatCode = '{categories["CatCode"]}'", connection);
+                    var menu_items = menu_command.ExecuteReader();
+                    
+                    <ul class = "list-unstyled">
+                    @while(menu_items.Read())
+                    {
+                        <li class="menu_items"> @menu_items["MenuTitle"] </li>
+                    }
+                    </ul>
+                    
+                    menu_items.Close();
+                    
+                }
+            </ul>
+            </div>
+        </div>
+        <div class = "col-9">
+            <!-- Display the customer in question -->
+            <div class="my-2 overflow-auto" style="height:100vh;">
+                <p class="fw-bold fs-4"> Customer </p>
+                <form class="row gx-3 gy-2 align-items-center">
+                     <div class="col-sm-2">
+                        <label class="fst-italic mb-2" for="specificSizeInputName">ID:</label>
+                        <input type="text" class="form-control" id="customer_id" readonly="true" placeholder="ID" readonly>
+                     </div>
+                     <div class="col-sm-3">
+                        <label class="fst-italic mb-2" for="specificSizeInputGroupUsername">Mobile:</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="customer_phone" placeholder="Phone number" readonly>
+                        </div>
+                     </div>
+                    <div class="col-sm-2">
+                        <label class="fst-italic mb-2" for="specificSizeSelect">Name:</label>
+                    <select class="form-select" id="customer_name">
+                            @{
+                                var get_customers = new SQLiteCommand("SELECT * FROM Customer", connection);
+                                var customers = get_customers.ExecuteReader();
+                            }
+                            @while(customers.Read())
+                            {
+                                <option> @customers["CustName"] </option>
+                            }
+                            @{
+                                customers.Close();
+                            }
+                    </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="fst-italic mb-2" for="specificSizeInputName">Table:</label>
+                        <input type="text" class="form-control" id="customer_table" placeholder="NA" readonly>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="fst-italic mb-2" for="specificSizeInputName">Date:</label>
+                        <input type="text" class="form-control" id="customer_date"placeholder="NA" readonly>
+                    </div>
+                    <button class="btn btn-secondary col-sm-3 m-2 mt-3" id="change_customer"> Change Customer </button>
+                </form>
+                
+                <p class="fw-bold mt-4 fs-4"> Order </p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Sub-total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders">
+                  
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+@{
+    categories.Close();
+    connection.Close();
+}
+
+

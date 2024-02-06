@@ -193,6 +193,14 @@
       "PackagePath": "staticwebassets\\images\\eden_western.png"
     },
     {
+      "Id": "C:\\Users\\Kevin\\Desktop\\Academics\\Misc\\eden_western_food\\eden_western_food\\wwwroot\\js\\ajax_client_side.js",
+      "PackagePath": "staticwebassets\\js\\ajax_client_side.js"
+    },
+    {
+      "Id": "C:\\Users\\Kevin\\Desktop\\Academics\\Misc\\eden_western_food\\eden_western_food\\wwwroot\\js\\helper_scripts.js",
+      "PackagePath": "staticwebassets\\js\\helper_scripts.js"
+    },
+    {
       "Id": "C:\\Users\\Kevin\\Desktop\\Academics\\Misc\\eden_western_food\\eden_western_food\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
